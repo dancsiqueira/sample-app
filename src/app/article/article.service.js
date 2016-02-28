@@ -12,6 +12,7 @@
             articles: [],
             find: find,
             findById: findById,
+            findBySlug: findBySlug,
             save: save,
             remove: remove
         };
@@ -34,6 +35,18 @@
                 })
             } else {
                 d.resolve(iterateArray(id));
+            }
+            return d.promise;
+        }
+
+        function findBySlug(slug) {
+            var d = $q.defer();
+            if (!service.articles.length) {
+                service.find().then(function () {
+                    return d.resolve(iterateArray(slug));
+                })
+            } else {
+                d.resolve(iterateArray(slug));
             }
             return d.promise;
         }
@@ -69,7 +82,7 @@
             if (service.articles.length) {
                 for (var i = 0; i < service.articles.length; i++) {
                     var obj = service.articles[i];
-                    if (obj.id === id) {
+                    if (obj.id === id || obj.slug === id) {
                         service.current = obj;
                         return obj;
                     }
