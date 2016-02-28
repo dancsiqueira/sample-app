@@ -21,7 +21,13 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController(moment) {
+    function NavbarController(moment, $scope) {
+      $scope.isCollapsed = true;
+
+      $scope.toggleStyling = function(){
+        $scope.isCollapsed = !$scope.isCollapsed;
+      };
+
       var vm = this;
 
       // "vm.creation" is avaible by directive option "bindToController: true"
