@@ -1,26 +1,55 @@
-<h2>Article {{article.editMode ? 'Edit' : 'Create'}}</h2>
-<a ui-sref="^.list()" class="button">Articles List</a>
-<form ng-submit="article.save(article.current)">
+<ol class="breadcrumb">
+  <li><a ui-sref="^.list()">Articles List</a></li>
+  <li class="active">Article {{article.editMode ? 'Edit' : 'Create'}}</li>
+</ol>
+<div class="page-header">
+    <h2>Article {{article.editMode ? 'Edit' : 'Create'}}</h2>
+</div>
+<form ng-submit="article.save(article.current)" name="articleForm">
+    <div ng-show="articleForm.title.$invalid && articleForm.title.$dirty" class="alert alert-danger">
+        Por favor preencha, o título do artigo
+    </div>
+    <div ng-show="articleForm.language.$invalid && articleForm.language.$dirty" class="alert alert-danger">
+        Por favor preencha, a lingua do artigo
+    </div>
+    <div ng-show="articleForm.summary.$invalid && articleForm.summary.$dirty" class="alert alert-danger">
+        Por favor preencha, o sumário do artigo
+    </div>
+    <div ng-show="articleForm.text.$invalid && articleForm.text.$dirty" class="alert alert-danger">
+        Por favor preencha, o texto do artigo
+    </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Title</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" ng-model="article.current.fullTitle"
-               placeholder="Title">
+        <input type="text" class="form-control" id="exampleInputEmail1" name="title" ng-model="article.current.fullTitle" ng-required="true" placeholder="Title">
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Language</label>
-        <input type="text" class="form-control" id="exampleInputPassword1" ng-model="article.current.language"
-               placeholder="Language">
+        <input type="text" class="form-control" id="exampleInputPassword1" name="language" ng-model="article.current.language" ng-required="true" placeholder="Language">
     </div>
     <div class="form-group">
         <label for="body">Summary</label>
-        <textarea id="body" ng-model="article.current.summary" class="form-control" rows="3"></textarea>
+        <textarea id="body" name="summary" ng-model="article.current.summary" class="form-control" rows="3"
+            ng-required="true" placeholder="Summary"></textarea>
     </div>
+    <div class="form-group">
+        <label for="body">Full Text</label>
+        <textarea id="body" name="text" ng-model="article.current.fullText" class="form-control" rows="5"       ng-required="true" placeholder="Full Text"></textarea>
+    </div>
+    <button type="submit" ng-disabled="articleForm.$invalid" class="btn btn-success pull-right">Submit</button>
     <div class="checkbox">
         <label>
             <input type="checkbox" ng-model="article.current.public"> Is public?
         </label>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
 </form>
-<pre>{{article.current|json}}</pre>
-<button ng-if="article.editMode">Ola Edit</button>
+<hr>
+
+<div ng-show="articleForm.title.$dirty || articleForm.text.$dirty || articleForm.summary.$dirty" class="panel panel-default">
+  <div class="panel-body">
+    <div ng-show="articleForm.title.$dirty" class="page-header">
+        <h2>{{article.current.fullTitle}}</h2>
+    </div>
+    <blockquote ng-show="articleForm.summary.$dirty">{{article.current.summary}}</blockquote>
+    <p ng-show="articleForm.text.$dirty" class="text-justify">{{article.current.fullText}}</p>
+  </div>
+</div>
