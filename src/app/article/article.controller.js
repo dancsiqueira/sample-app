@@ -36,6 +36,7 @@
     /** @ngInject */
     function ArticleEditController($state, Article) {
         var vm = this;
+
         if ($state.params.slug) {
             vm.editMode = true;
             Article.findBySlug($state.params.slug).then(function (res) {

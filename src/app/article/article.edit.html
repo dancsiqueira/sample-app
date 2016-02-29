@@ -2,6 +2,18 @@
   <li><a ui-sref="^.list()">Articles List</a></li>
   <li class="active">Article {{article.editMode ? 'Edit' : 'Create'}}</li>
 </ol>
+
+<ul class="list-group col-sm-6">
+    <li class="list-group-item list-group-item-success" ui-sref="^.editPrevious({slug: article.slug})">
+        Editar artigo anterior
+    </li>
+</ul>
+<ul class="list-group col-sm-6">
+    <li class="list-group-item list-group-item-success text-right" ui-sref="^.editNext({slug: article.slug})">
+        Editar próximo artigo
+    </li>
+</ul>
+
 <div class="page-header">
     <h2>Article {{article.editMode ? 'Edit' : 'Create'}}</h2>
 </div>

@@ -81,6 +81,20 @@
                 templateUrl: 'app/article/article.edit.html',
                 controller: 'ArticleEditController',
                 controllerAs: 'article'
+            })
+
+            .state('articles.editPrevious', {
+                url: '/edit/:slug',
+                templateUrl: 'app/article/article.edit.html',
+                controller: 'ArticleEditController',
+                controllerAs: 'article'
+            })
+
+            .state('articles.editNext', {
+                url: '/edit/:slug',
+                templateUrl: 'app/article/article.edit.html',
+                controller: 'ArticleEditController',
+                controllerAs: 'article'
             });
 
         $urlRouterProvider.otherwise('/');
